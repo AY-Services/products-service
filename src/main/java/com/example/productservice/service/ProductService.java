@@ -1,5 +1,6 @@
 package com.example.productservice.service;
 
+import com.example.productservice.domain.dto.ProductDetails;
 import com.example.productservice.domain.dto.ProductModel;
 import com.example.productservice.domain.entities.Product;
 import com.example.productservice.domain.mappers.ProductMapper;
@@ -19,12 +20,16 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-    public Product createProduct(ProductModel productModel) {
+    public ProductDetails createProduct(ProductModel productModel) {
         Product productDb = productMapper.fromModelToDb(productModel);
-        return productRepository.save(productDb);
+        Product result = productRepository.save(productDb);
+        ProductDetails productDetails = productMapper.fromDbToDetails(result);
+        return productDetails;
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductDetails> getAllProducts() {
+        List<Product> resultList =  productRepository.findAll();
+        List<ProductDetails> productList = productMapper.fromDbToDetails(resultList);
+        return productList;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.productservice.web;
 
+import com.example.productservice.domain.dto.ProductDetails;
 import com.example.productservice.domain.dto.ProductModel;
 import com.example.productservice.domain.entities.Product;
 import com.example.productservice.service.ProductService;
@@ -20,13 +21,13 @@ public class ProductController {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    private Product createProduct(@RequestBody ProductModel productModel){
+    private ProductDetails createProduct(@RequestBody ProductModel productModel){
         return productService.createProduct(productModel);
     }
 
     @GetMapping("/getAll")
     @ResponseStatus(HttpStatus.OK)
-    private List<Product> getAllProducts(){
+    private List<ProductDetails> getAllProducts(){
         return productService.getAllProducts();
     }
 }
